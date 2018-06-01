@@ -1,4 +1,4 @@
-# Fortran_1
+# Fortran_2
 
 The general desctiption of the project is [here](http://home.agh.edu.pl/~macwozni/fort/projekt2.pdf). 
 --------------
