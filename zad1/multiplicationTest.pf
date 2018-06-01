@@ -1,0 +1,114 @@
+#define N 800
+#define K 5
+
+@test
+subroutine Test1()
+  use pfunit_mod
+  use multiplication
+  real (kind = 8) :: first(1,1), second(1,1), multiply(1,1)
+  integer(kind = 4) :: status
+  first(1,1) = 3
+  second(1,1) = 7
+  call mm(first, second, multiply, status)
+  @assertEqual(21, multiply(1,1))
+end
+
+@test
+subroutine Test2()
+  use pfunit_mod
+  use multiplication
+  real (kind = 8) :: first(1, N), second(N, 1), multiply(1, 1)
+  integer (kind = 4) :: status, i
+  do i=1, N
+    first(1, i) = 1
+    second(i, 1) = 1
+  end do
+  call mm(first, second, multiply, status)
+  @assertEqual(N, multiply(1,1))
+end
+
+@test
+subroutine Test3()
+  use pfunit_mod
+  use multiplication
+  real (kind = 8) :: first(N, 1), second(1, N), multiply(N,N), tmp(N, N)
+  integer (kind = 4) :: status, i,j
+  do i=1, N
+    first(i, 1) = 5
+    second(1, i) = 5
+    do j=1, N
+      tmp(i, j) = 25
+    end do
+  end do
+  call mm(first, second, multiply, status)
+  @assertEqual(tmp, multiply)
+end
+
+@test
+subroutine Test4()
+  use pfunit_mod
+  use multiplication
+  real (kind = 8) :: first(N, N), second(N, N), multiply(N,N), tmp(N, N)
+  integer (kind = 4) :: status, i,j
+  do i=1, N
+    do j=1, N
+      first(i, j) = 1
+      second(i, j) = 1
+      tmp(i, j) = N
+    end do
+  end do
+  call mm(first, second, multiply, status)
+  @assertEqual(tmp, multiply)
+end
+
+@test
+subroutine Test5()
+  use pfunit_mod
+  use multiplication
+  real (kind = 8) :: first(N, N), second(N, N), multiply(N,N), tmp(N, N)
+  integer (kind = 4) :: status, i,j
+  do i=1, N
+    do j=1, N
+      first(i, j) = 1
+      second(i, j) = 1
+      tmp(i, j) = N
+    end do
+  end do
+  call mm(first, second, multiply, status)
+  @assertEqual(tmp, multiply)
+end
+
+@test
+subroutine Test6() !fail
+  use pfunit_mod
+  use multiplication
+  real (kind = 8) :: first(1, N), second(1, N), multiply(1, N) 
+  integer (kind = 4) :: status, i
+  do i=1, N
+    first(1, i) = 123
+    second(1, i) = 232
+  end do
+  call mm(first, second, multiply, status)
+  @assertEqual(1, status)
+end
+
+@test
+subroutine Test7()
+  use pfunit_mod
+  use multiplication
+  real (kind = 8) :: first(K, N), second(N,K), multiply(K, K), tmp(K,K)
+  integer (kind = 4) :: status, i, j
+  do i=1, N
+    do j=1, K
+      first(j,i)=1
+      second(i,j)=1
+    end do
+  end do
+  do i=1, K
+    do j=1, K
+      tmp(i, j) = N
+    end do
+  end do
+  call mm(first, second, multiply, status)
+  @assertEqual(tmp, multiply)
+end 
