@@ -20,9 +20,9 @@ module multiplication
 	multiplyK = SIZE(multiply(1, :))
 
 	if (firstK .NE. secondW) then
-		print *, "INCORRECT INPUT"
+		!print *, "INCORRECT INPUT"
 		status = 1
-		stop
+		!stop
 	end if
 
 	do i=1, multiplyW
@@ -34,11 +34,11 @@ module multiplication
 		end do
 	end do
 
-	print *, "RESULT:"
+	!print *, "RESULT:"
 
-	do i=1, multiplyW
-		print *, (multiply(i,j), j=1, multiplyK)
-	end do
+	!do i=1, multiplyW
+	!	print *, (multiply(i,j), j=1, multiplyK)
+	!end do
 	
 	status = 0
   
